@@ -5,7 +5,13 @@ import {connect} from 'react-redux';
 const styles = {
   container: {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    margin:'0px 0px 0px 8px'
+  },
+  body:{
+    backgroundColor:'rgb(0, 121, 191)',
+    width: '100%',
+    height: '100vh'
   }
 };
 
@@ -13,7 +19,7 @@ class App extends Component {
   render() {
     const {lists} = this.props;
     return (
-      <div>
+      <div style={styles.body}>
         <h1>Trello App</h1>
         <div style={styles.container}>
           { lists.map( list => (
