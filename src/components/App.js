@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import TrelloList from './TrelloList';
 import {connect} from 'react-redux';
-import Provider from 'react-redux';
-import store from '../store/index';
 
 const styles = {
   container: {
@@ -15,14 +13,15 @@ class App extends Component {
   render() {
     const {lists} = this.props;
     return (
-      <Provider store={store}>
+      <div>
+        <h1>Trello App</h1>
         <div style={styles.container}>
           { lists.map( list => (
-              <TrelloList title = {list.title} cards = {list.cards}/>
+              <TrelloList key = {list.id} title = {list.title} cards = {list.cards}/>
             ))
           }
         </div>
-      </Provider>
+      </div>
     );
   }
 }

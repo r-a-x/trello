@@ -9,7 +9,29 @@ const initialState = [
             },
             {
                 id:1,
+                text:"The task 2dflkdsjfdsajlkjfd sajflkdsalkfjldsaflkjds afjlkdjflka  fjlddfjdsjlkfdsfjdslfdsafj dsfdsjflkdsjffdsfds ffdfdfdsfddf"
+            },
+            {
+                id:2,
+                text:" The task 1"
+            },
+            {
+                id:3,
                 text:"The task 2"
+            }
+        ]
+    },
+    {
+        title:"Next Episode",
+        id:1,
+        cards:[
+            {
+                id:0,
+                text:" The task for the next episode"
+            },
+            {
+                id:1,
+                text:"The task for the next episode"
             }
         ]
     }

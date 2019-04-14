@@ -1,29 +1,55 @@
 import React from 'react';
 import TrelloCard from './TrelloCard';
+import TrelloActionButton from './TrelloActionButton';
 
 const TrelloList = ({title,cards}) => {
     console.log("In the TrelloList method");
     return (
         <div style={styles.container}>
-            <div style={styles.title}>{title}</div>
-            {cards.map( card => (
-                    <TrelloCard text = {card.text} />
-                )
-            )}
+            <div style = {styles.title.container}>
+                <div style = {styles.title.content}>
+                    {title}
+                </div>
+            </div>
+            <div style = {styles.trelloList}>
+                {cards.map( card => (
+                        <TrelloCard key = {card.id} text = {card.text} />
+                    )
+                )}
+            </div>
+        <TrelloActionButton/>
         </div>
     );
 };
 
 const styles = {
     container: {
-        // backgroundColor: '#17394d',
-        backgroundColor: 'grey',
-        width: '200px',
-        padding: '5px',
-        marginRight: '8px'
+        backgroundColor: '#dfe3e6',
+        borderRadius: '3px',
+        boxSizing: 'borderBox',
+        display: 'flex',
+        flexDirection: 'column',
+        maxHeight: '100%',
+        width: '272px',
+        marginRight: '8px',
+        boxSizing: 'border-box'
     },
     title: {
-        margin:'0px'
+        container:{
+            margin:'0px',
+            minHeight:'38px',
+            display:"flex",
+            alignItems: 'center'
+        },
+        content:{
+            padding:'0px 0px 0px 16px',
+            fontWeight:'bold'            
+        }
+    },
+    trelloList: {
+        padding:'0px 4px 0px 4px',
+        margin:'0px 4px 0px 4px',
+        width:'256px'
     }
 }
 export default TrelloList;
