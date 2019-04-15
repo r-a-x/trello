@@ -6,7 +6,8 @@ const styles = {
   container: {
     display: 'flex',
     flexDirection: 'row',
-    margin:'0px 0px 0px 8px'
+    margin:'0px 0px 0px 8px',
+    cursor:'pointer'
   },
   body:{
     backgroundColor:'rgb(0, 121, 191)',
@@ -20,7 +21,7 @@ class App extends Component {
     const {lists} = this.props;
     return (
       <div style={styles.body}>
-        <h1>Trello App</h1>
+        <h1 style = {{margin:'0px 0px 10px'}}>Trello App</h1>
         <div style={styles.container}>
           { lists.map( list => (
               <TrelloList key = {list.id} title = {list.title} cards = {list.cards}/>

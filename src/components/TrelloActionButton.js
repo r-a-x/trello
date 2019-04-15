@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import Icon from '@material-ui/core/Icon';
 import Textarea from 'react-textarea-autosize';
 import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 class TrelloActionButton extends Component {
 
     constructor(props){
         super(props);
-        this.state={renderTextArea:false,textAreaText:""};
+        this.state  =   {
+            renderTextArea: false,
+            textAreaText: ""
+        };
     }
     
     handleChange(event) {
@@ -20,15 +24,25 @@ class TrelloActionButton extends Component {
         const {list} = this.props;
         const placeHolderText = list? "Enter list title..." :"Enter a title for this card...";
         return (
-            <Card style = {styles.textAreaContainer}>
-                <Textarea autoFocus onChange={this.handleChange.bind(this)} style = {{
-                    width: '100%'
-                }}
-                onBlur = {this.closeTextArea.bind(this)}
-                value = {this.state.textAreaText}
-                placeholder = {placeHolderText}
-                />
-            </Card>
+                <Card style={styles.textAreaContainer}>
+                         {/* <CardContent style={styles.card}> */}
+                               <Textarea autoFocus onChange={this.handleChange.bind(this)} style = {{
+                        // width: '100%',
+                        resize:'none',
+                        padding:'0px 6px',
+                        border:'0px',
+                        width:'100%',
+                        minHeight:'52px',
+                        borderRadius: '3px',
+                        boxSizing:'border-box'
+                    }}
+                    onBlur = {this.closeTextArea.bind(this)}
+                    value = {this.state.textAreaText}
+                    placeholder = {placeHolderText}
+                    />
+                        {/* </CardContent> */}
+              
+                </Card>
         );
     }
 
@@ -37,14 +51,15 @@ class TrelloActionButton extends Component {
         console.log("The value of the render props are",list);
         const buttonText = list ? "Add another list": "Add another card";
         return (
-            <div style = {styles.buttonContainer} onClick={this.openTextArea.bind(this)}>
+            <div style = {styles.container} onClick={this.openTextArea.bind(this)}>
                 <Icon style = {{
-                    height: '20px',
-                    fontSize: '12px',
-                    lineHeight: '20px',
-                    width: '20px'
+                    height: '18px',
                 }}>add</Icon>
-                <p style = {{margin:'0px 0px 0px 0px'}}>{buttonText}</p>
+                <p style = {{
+                    font:'normal normal 400 normal 14px / 20px "Helvetica Neue", Arial, Helvetica, sans-serif',
+                    margin:'0px 0px 0px 0px',
+                    fontColor:'#6b808c',
+                    backgroundColor:'transparent'}}>{buttonText}</p>
             </div>
         );
     }
@@ -61,34 +76,31 @@ class TrelloActionButton extends Component {
 
     render(){
         const { renderTextArea } = this.state;
-        return ( <div style = {styles.container}>
-                    {renderTextArea ? this.renderTextArea() : this.renderButton()}
-                </div>);
+        return renderTextArea ? this.renderTextArea() : this.renderButton();
     }
 }
 
 const styles = {
+    container: {
+        margin:'4px 4px 8px 4px',
+        padding:'0px 4px',
+        display:'flex'
+    },
     buttonContainer:{
         display: 'flex',
-        cursor: 'pointer',
-    },
-    container: {
-        marginTop:'8px'
     },
     textAreaContainer: {
         backgroundColor: '#fff',
         borderRadius: '3px',
-        boxShadow: '0 1px 0 rgba(9,45,66,.25)',
+        margin:'0px 8px 8px 8px',
+        padding:'0px',
+        minHeight: '52px',
         cursor: 'pointer',
-        display: 'block',
-        // marginBottom: '8px',
-        marginTop: '8px',
-        maxWidth: '300px',
-        minHeight: '20px',
-        position: 'relative',
-        textDecoration: 'none',
-        height: '52px',
-        paddingBottom: '2px'
-    }
+    },
+    card:{
+        margin:'0px',
+        padding:'0px',
+        minHeight:'24px',
+    },
 }
 export default TrelloActionButton;
