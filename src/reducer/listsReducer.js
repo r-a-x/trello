@@ -1,3 +1,8 @@
+import {ACTION_CONSTANTS} from '../action';
+
+var cardID = 4;
+var listIDT = 2;
+
 const initialState = [
     {
         title:"Last Episode",
@@ -38,7 +43,47 @@ const initialState = [
 ]
 
 const listsReducer = (state = initialState, action) => {
+    console.log("In the list Reducer", action.type);
+    let newState = [];
     switch(action.type) {
+        case ACTION_CONSTANTS.ADD_LIST_ACTION:
+            newState = [...state];
+            newState.push({
+                id: listIDT,
+                title: action.payload.title,
+                cards:[]
+            });
+            listIDT += 1;
+            return newState;
+        case ACTION_CONSTANTS.ADD_CARD_ACTION:
+            console.log("In the Add Card button reducer");
+             const {listID, text} = action.payload
+             console.log("The action of the object payload in the list Reducer is ");
+             console.log(action.payload);
+             const card = {
+                 id: cardID,
+                 text: text
+             }
+             cardID += 1;
+             newState = [];
+             state.map( (list,idx) => {
+                if ( idx == listID){
+                    newState.push({
+                        id:listID,
+                        title:list.title,
+                        cards:[...list.cards, card]
+                    })
+                } else {
+                    console.log("Printing the list over here", list);
+                    newState.push({
+                        id:idx,
+                        title:list.title,
+                        cards:[...list.cards]
+                    })
+                }
+             })
+             console.log(newState)
+            return newState;
         default:
             return state;
     }
