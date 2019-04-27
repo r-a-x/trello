@@ -26,7 +26,6 @@ const styles = {
     container: {
         backgroundColor: '#dfe3e6',
         borderRadius: '3px',
-        boxSizing: 'borderBox',
         display: 'flex',
         flexDirection: 'column',
         maxHeight: '100%',

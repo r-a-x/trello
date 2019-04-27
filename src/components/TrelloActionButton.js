@@ -42,6 +42,22 @@ class TrelloActionButton extends Component {
         });
     }
 
+    getCssForTextAre(){
+        var style = {
+            "resize": "none",
+            "padding": "6px 6px",
+            "border": "0px",
+            "width": "100%",
+            "minHeight": "52px",
+            "borderRadius": "3px",
+            "boxSizing": "border-box"
+        }
+        const {list} = this.props;
+        if (list){
+            style.minHeight = "32px";
+        }
+        return style;
+    }
 
     renderTextArea(){
         const {list} = this.props;
@@ -54,15 +70,9 @@ class TrelloActionButton extends Component {
                     margin:'0px',
                     padding:'0px'
                 }}>
-                    <Textarea autoFocus onChange={this.handleChange.bind(this)} style = {{
-                        resize:'none',
-                        padding:'0px 6px',
-                        border:'0px',
-                        width:'100%',
-                        minHeight:'52px',
-                        borderRadius: '3px',
-                        boxSizing:'border-box'
-                    }}
+                    <Textarea autoFocus onChange={this.handleChange.bind(this)} style = {
+                        this.getCssForTextAre()
+                    }
                     // onBlur = {this.closeTextArea.bind(this)}
                     value = {this.state.textAreaText}
                     placeholder = {placeHolderText}
@@ -98,10 +108,11 @@ class TrelloActionButton extends Component {
 
     getCssForButtonContainer(){
         var container = {
-            margin:'4px 4px 8px 4px',
-            padding:'0px 4px',
             display:'flex',
-            opacity:'1'
+            flexDirection:'column',
+            opacity:'1',
+            height:'32px',
+            justifyContent:'center',
         }
         const {list} = this.props;
         if (list){
@@ -117,12 +128,17 @@ class TrelloActionButton extends Component {
             <div style = {
                 this.getCssForButtonContainer()
             } onClick={this.openTextArea.bind(this)}>
-                <Icon style = {{
-                    height: '18px',
-                }}>add</Icon>
-                <p style = { 
-                    this.getCssForButton()
-                 }>{buttonText}</p>
+                <div style  = {{
+                    display:'flex',
+                    alignContent:'column'
+                }}>
+                    <Icon style = {{
+                        height: '18px',
+                    }}>add</Icon>
+                    <p style = { 
+                        this.getCssForButton()
+                    }>{buttonText}</p>
+                </div>
             </div>
         );
     }
@@ -138,31 +154,36 @@ class TrelloActionButton extends Component {
     render(){
         const { renderTextArea } = this.state;
         console.log("In the render method,", renderTextArea);
-        return renderTextArea ? this.renderTextArea() : this.renderButton();
+        return <div style={this.getStyleForActionButtonContainer()}> {renderTextArea ? this.renderTextArea() : this.renderButton()}</div>
+    }
+
+    getStyleForActionButtonContainer = () => {
+        var style = {
+            padding:'0px 4px 0px 4px',
+            margin:'0px 4px 8px 4px',
+            width:'256px'
+        }
+        const {list} = this.props;
+        if (list){
+            style.width = "272px";
+            style.padding = "6px";
+            style.backgroundColor = "#dfe3e6";
+            style.display = "block";
+            style.height = "fit-content";
+            style.borderRadius = "3px";
+        }
+        return style;
     }
 }
 
 const styles = {
-    container: {
-        margin:'4px 4px 8px 4px',
-        padding:'0px 4px',
-        display:'flex'
-    },
-    buttonContainer:{
-        display: 'flex',
-    },
     textAreaContainer: {
         backgroundColor: '#fff',
         borderRadius: '3px',
-        margin:'0px 8px 8px 8px',
         padding:'0px',
         minHeight: '52px',
         cursor: 'pointer',
-    },
-    card:{
-        margin:'0px',
-        padding:'0px',
-        minHeight:'24px',
-    },
+        width:'100%'
+    }
 }
 export default TrelloActionButton;

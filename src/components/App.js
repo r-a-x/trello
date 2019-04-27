@@ -12,9 +12,18 @@ const styles = {
   },
   body:{
     backgroundColor:'rgb(0, 121, 191)',
-    width: '100%',
+    minWidth: 'fit-content',
     height: '100vh'
-  }
+  },
+  containerTrelloList: {
+    backgroundColor: '#dfe3e6',
+    borderRadius: '3px',
+    display: 'flex',
+    flexDirection: 'column',
+    width: '272px',
+    marginRight: '8px',
+    boxSizing: 'border-box'
+},
 };
 
 class App extends Component {
@@ -29,7 +38,9 @@ class App extends Component {
             ))
           }
           {/* There will  */}
+          {/* <div style={styles.containerTrelloList}> */}
           <TrelloActionButton list/>
+          {/* </div> */}
         </div>
       </div>
     );
