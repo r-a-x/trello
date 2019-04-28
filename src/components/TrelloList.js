@@ -9,7 +9,7 @@ const TrelloListContainer = styled.div`
     border-radius: 3px;
     display: flex;
     flex-direction: column;
-    max-height: 100%;
+    height: 100%;
     width: 272px;
     margin-right: 8px;
     box-sizing: border-box;

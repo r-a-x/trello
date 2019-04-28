@@ -18,7 +18,7 @@ const AppContainer = styled.div`
 const Body = styled.div`
   background-color: rgb(0, 121, 191);
   min-width: fit-content;
-  height: 100vh;
+  height: 200vh;
 `
 class App extends Component {
   onDragEnd = (result) => {
