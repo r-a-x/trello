@@ -99,6 +99,14 @@ const listsReducer = (state = initialState, action) => {
                 const nullCardIndex = list.cards.indexOf( null);
                 list.cards.splice(nullCardIndex, 1);
              }
+             else{
+                //  The drop is happening in some other list
+                var destinationList =  newState.find( list => list.id === destination.droppableId);
+                var sourceList = newState.find( list => list.id === source.droppableId);
+
+                destinationList.cards.splice(destination.index, 0, sourceList.cards[source.index]);
+                sourceList.cards.splice(source.index, 1);
+             }
              return newState;
         default:
             return state;
