@@ -2,47 +2,53 @@ import React, { Component } from 'react';
 import TrelloList from './TrelloList';
 import {connect} from 'react-redux';
 import TrelloActionButton from './TrelloActionButton';
+import { DragDropContext } from 'react-beautiful-dnd';
+import reorderAction from './../action/reorderAction';
+import store from './../store';
+import styled from 'styled-components';
+import { List } from '@material-ui/core';
 
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'row',
-    margin:'0px 0px 0px 8px',
-    cursor:'pointer'
-  },
-  body:{
-    backgroundColor:'rgb(0, 121, 191)',
-    minWidth: 'fit-content',
-    height: '100vh'
-  },
-  containerTrelloList: {
-    backgroundColor: '#dfe3e6',
-    borderRadius: '3px',
-    display: 'flex',
-    flexDirection: 'column',
-    width: '272px',
-    marginRight: '8px',
-    boxSizing: 'border-box'
-},
-};
+const AppContainer = styled.div`
+  display:flex;
+  flex-direction:row;
+  margin:0px 0px 0px 8px;
+  cursor:pointer;
+`
 
+const Body = styled.div`
+  background-color: rgb(0, 121, 191);
+  min-width: fit-content;
+  height: 100vh;
+`
 class App extends Component {
+  onDragEnd = (result) => {
+    const { source, destination, draggableId} = result;
+    if (!destination){
+      return;
+    }
+    store.dispatch(reorderAction(
+      source,
+      destination,
+      draggableId
+    ));
+    console.log();
+  }
+
   render() {
     const {lists} = this.props;
     return (
-      <div style={styles.body}>
-        <h1 style = {{margin:'0px 0px 10px'}}>Trello App</h1>
-        <div style={styles.container}>
-          { lists.map( list => (
-              <TrelloList key = {list.id} title = {list.title} cards = {list.cards} listID = {list.id}/>
-            ))
-          }
-          {/* There will  */}
-          {/* <div style={styles.containerTrelloList}> */}
-          <TrelloActionButton list/>
-          {/* </div> */}
-        </div>
-      </div>
+      <DragDropContext onDragEnd = {this.onDragEnd}>
+        <Body>
+          <h1 style = {{margin:'0px 0px 10px'}}>Trello App</h1>
+          <AppContainer>
+            { lists.map( list => (
+                <TrelloList key = {list.id} title = {list.title} cards = {list.cards} listID = {list.id}/>
+              ))
+            }
+            <TrelloActionButton list/>
+          </AppContainer>
+        </Body>
+      </DragDropContext>
     );
   }
 }
