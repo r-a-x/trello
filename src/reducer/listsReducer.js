@@ -89,15 +89,20 @@ const listsReducer = (state = initialState, action) => {
              const {
                  source,
                  destination,
-                 draggableId
+                 draggableId,
+                 type
              } = action.payload;
+             if ( type === "list" ){
+                 const movedList = newState[destination.index];
+                 newState.splice(destination.index, 1, newState[source.index]);
+                 newState.splice(source.index, 1, movedList);
+                 return newState;
+             }
              if( source.droppableId == destination.droppableId ){
                 var list = newState.find( list => list.id === source.droppableId );
-                const cardTo = list.cards[source.index];
-                list.cards.splice(source.index, 1, null);
-                list.cards.splice(destination.index, 0, cardTo);
-                const nullCardIndex = list.cards.indexOf( null);
-                list.cards.splice(nullCardIndex, 1);
+                const finalCard = list.cards[destination.index];
+                list.cards.splice(destination.index, 1, list.cards[source.index]);
+                list.cards.splice(source.index, 1, finalCard);
              }
              else{
                 //  The drop is happening in some other list
