@@ -5,7 +5,7 @@ var listIDT = 2;
 
 const initialState = [
     {
-        title:"Last Episode",
+        title:"1",
         id:`list-${0}`,
         cards:[
             {
@@ -27,7 +27,7 @@ const initialState = [
         ]
     },
     {
-        title:"Next Episode",
+        title:"2",
         id:`list-${1}`,
         cards:[
             {
@@ -67,7 +67,7 @@ const listsReducer = (state = initialState, action) => {
              cardID += 1;
              newState = [];
              state.map( (list,idx) => {
-                if ( idx == listID){
+                if ( `list-${idx}` == listID){
                     newState.push({
                         id:`list-${listID}`,
                         title:list.title,
@@ -93,16 +93,28 @@ const listsReducer = (state = initialState, action) => {
                  type
              } = action.payload;
              if ( type === "list" ){
-                 const movedList = newState[destination.index];
-                 newState.splice(destination.index, 1, newState[source.index]);
-                 newState.splice(source.index, 1, movedList);
+                 var sourceList = newState[source.index];
+                 if(source.index > destination.index){
+                    newState.splice(source.index, 1);
+                    newState.splice(destination.index,0,sourceList);
+                 }
+                 else{
+                    newState.splice(destination.index+1, 0, sourceList);
+                    newState.splice(source.index, 1);
+                 }
                  return newState;
              }
              if( source.droppableId == destination.droppableId ){
                 var list = newState.find( list => list.id === source.droppableId );
-                const finalCard = list.cards[destination.index];
-                list.cards.splice(destination.index, 1, list.cards[source.index]);
-                list.cards.splice(source.index, 1, finalCard);
+                const sourceCard = list.cards[source.index];
+                if(source.index > destination.index){
+                    list.cards.splice(source.index, 1);
+                    list.cards.splice(destination.index,0, sourceCard);
+                 }
+                 else{
+                    list.cards.splice(destination.index+1, 0, sourceCard);
+                    list.cards.splice(source.index, 1);
+                 }
              }
              else{
                 //  The drop is happening in some other list
