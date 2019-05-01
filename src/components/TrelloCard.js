@@ -12,24 +12,21 @@ const CardContainer = styled.div`
 const TrelloCard = ({text,id,index}) => {
     console.log("Calling the card component");
     return (
-        <CardContainer>
             <Draggable draggableId={String(id)} index={index}>
                 {(provided) => (
-                    <div ref = {provided.innerRef}
+                    <CardContainer ref = {provided.innerRef}
                     {...provided.draggableProps} 
                     {...provided.dragHandleProps}>
-                            <Card>
-                                <CardContent style={styles.card}>
-                                <Typography gutterBottom style={styles.content}>
-                                    {text}
-                                </Typography>
-                                </CardContent>
-                            </Card>
-                        
-                    </div>
+                        <Card>
+                            <CardContent style={styles.card}>
+                            <Typography gutterBottom style={styles.content}>
+                                {text}
+                            </Typography>
+                            </CardContent>
+                        </Card>
+                    </CardContainer>
                 )}
             </Draggable>
-        </CardContainer>
         );
 };
 
